@@ -1,5 +1,5 @@
 import * as os from 'os';
-import { sayHello } from './utils/index.js';
+import { sayHello } from './utils/messages.js';
 import { readInputText } from './utils/readInputText.js';
 
 let location = os.homedir();

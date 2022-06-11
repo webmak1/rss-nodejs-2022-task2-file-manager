@@ -1,6 +1,7 @@
 import readline from 'readline';
+import { archivers } from './archivers.js';
 import { getFileHash } from './hashCalculation.js';
-import { sayGoodBye } from './index.js';
+import { sayGoodBye } from './messages.js';
 import { osInfo } from './osInfo.js';
 
 export const readInputText = () => {
@@ -24,17 +25,37 @@ export const readInputText = () => {
         help();
         break;
       }
+      case 'navigation': {
+        help();
+        break;
+      }
+      case 'filesOperations': {
+        help();
+        break;
+      }
       case 'os': {
         if (inputUserArgs.length > 1 && inputUserArgs.length < 3) {
           osInfo(inputUserArgs[1]);
         }
-        break; // добавлю, но его отсутствие не меняло поведение
+        break;
       }
       case 'hash': {
         if (inputUserArgs.length > 1 && inputUserArgs.length < 3) {
           getFileHash(inputUserArgs[1]);
         }
-        break; // добавлю, но его отсутствие не меняло поведение
+        break;
+      }
+      case 'compress': {
+        if (inputUserArgs.length === 3) {
+          archivers(inputUserArgs);
+        }
+        break;
+      }
+      case 'decompress': {
+        if (inputUserArgs.length === 3) {
+          archivers(inputUserArgs);
+        }
+        break;
       }
       default: {
         process.stdout.write(
