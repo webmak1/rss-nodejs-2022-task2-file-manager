@@ -1,5 +1,7 @@
 import readline from 'readline';
+import { getFileHash } from './hashCalculation.js';
 import { sayGoodBye } from './index.js';
+import { osInfo } from './osInfo.js';
 
 export const readInputText = () => {
   const rl = readline.createInterface({
@@ -9,10 +11,9 @@ export const readInputText = () => {
   });
 
   rl.on('line', async (inputText) => {
-    console.log(inputText);
-    const inputTextToArray = inputText.toString().trim().split(' ');
+    const inputUserArgs = inputText.toString().trim().split(' ');
 
-    switch (inputTextToArray[0]) {
+    switch (inputUserArgs[0]) {
       case '.exit': {
         sayGoodBye();
       }
@@ -23,12 +24,15 @@ export const readInputText = () => {
         help();
         break;
       }
-      // Убрала часть, чтобы не навлечь гнев
+      case 'os': {
+        if (inputUserArgs.length > 1 && inputUserArgs.length < 3) {
+          osInfo(inputUserArgs[1]);
+        }
+        break; // добавлю, но его отсутствие не меняло поведение
+      }
       case 'hash': {
-        if (commandArray.length > 1) {
-          const filePath = path.join(cwd, commandArray.slice(1).join(' '));
-          const hash = await calculateHash(filePath);
-          console.log(`Hash for the file: ${filePath} is: ${hash}`);
+        if (inputUserArgs.length > 1 && inputUserArgs.length < 3) {
+          getFileHash(inputUserArgs[1]);
         }
         break; // добавлю, но его отсутствие не меняло поведение
       }
