@@ -94,7 +94,6 @@ export const readInputText = () => {
         }
         break;
       }
-      // TODO
       // MOVE
       case 'mv': {
         if (inputUserArgs.length > 1 && inputUserArgs.length < 4) {
