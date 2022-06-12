@@ -1,6 +1,5 @@
 import * as fs from 'fs';
-
-const errorMessage = 'FS operation failed';
+import { errorMessageFSOperationFailed } from '../messages.js';
 
 async function removeFile(fileToRemove) {
   await fs.unlink(fileToRemove, (err) => {
@@ -14,7 +13,7 @@ async function removeFile(fileToRemove) {
 export const remove = async (fileToRemove) => {
   try {
     if (!fs.existsSync(fileToRemove)) {
-      throw new Error(errorMessage);
+      throw new Error(errorMessageFSOperationFailed);
     } else {
       await removeFile(fileToRemove);
     }

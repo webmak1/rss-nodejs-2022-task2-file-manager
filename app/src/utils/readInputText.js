@@ -60,7 +60,6 @@ export const readInputText = () => {
         break;
       }
       case 'cat': {
-        // cat /home/marley/projects/dev/rss/rss-nodejs-2022-task2-file-manager/files/fileToRead.txt
         if (inputUserArgs.length > 0 && inputUserArgs.length < 3) {
           read(inputUserArgs[1]);
         } else {
@@ -69,7 +68,6 @@ export const readInputText = () => {
         break;
       }
       case 'add': {
-        // add /home/marley/projects/dev/rss/rss-nodejs-2022-task2-file-manager/files/fileToCreate.txt
         if (inputUserArgs.length > 0 && inputUserArgs.length < 3) {
           create(inputUserArgs[1]);
         } else {
