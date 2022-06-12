@@ -3,6 +3,7 @@ import { compress, decompress } from './archivers.js';
 import { copy } from './files-operations/copy.js';
 import { create } from './files-operations/create.js';
 import { list } from './files-operations/list.js';
+import { move } from './files-operations/move.js';
 import { read } from './files-operations/read.js';
 import { remove } from './files-operations/remove.js';
 import { rename } from './files-operations/rename.js';
@@ -96,7 +97,6 @@ export const readInputText = () => {
       // TODO
       // MOVE
       case 'mv': {
-        // rn /home/marley/projects/dev/rss/rss-nodejs-2022-task2-file-manager/files/wrongFilename.txt /home/marley/projects/dev/rss/rss-nodejs-2022-task2-file-manager/files/properFilename.md
         if (inputUserArgs.length > 1 && inputUserArgs.length < 4) {
           move(inputUserArgs[1], inputUserArgs[2]);
         } else {

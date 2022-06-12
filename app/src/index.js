@@ -2,14 +2,6 @@ import { sayHello } from './utils/messages.js';
 import { getCurrentLocation } from './utils/navigation/index.js';
 import { readInputText } from './utils/readInputText.js';
 
-// TODO
-// COPY
-
-// TODO
-// MOVE
-
-// Проверка на существование файла!
-
 const app = () => {
   sayHello();
   getCurrentLocation();
