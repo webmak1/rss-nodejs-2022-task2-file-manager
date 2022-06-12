@@ -1,31 +1,37 @@
 import * as fs from 'fs';
+import { errorMessageFSOperationFailed } from '../messages.js';
+import { currentLocation } from '../navigation/index.js';
+import { remove } from './remove.js';
 
-const errorMessage = 'FS operation failed';
+export const rename = async (currentFileName, newFileName) => {
+  if (!currentFileName.includes('/')) {
+    currentFileName = currentLocation + currentFileName;
+  }
 
-async function renameFile(wrongFilename, properFilename) {
-  await fs.rename(wrongFilename, properFilename, (err) => {
-    if (err) {
-      return console.error(err);
-    }
-    console.log(
-      ' > File' + wrongFilename + 'successful rename to ' + properFilename
-    );
-  });
-}
+  if (!newFileName.includes('/')) {
+    newFileName = currentLocation + newFileName;
+  }
 
-export const rename = async (wrongFilename, properFilename) => {
-  console.log(wrongFilename);
-  console.log(properFilename);
+  // cd /home/marley/projects/dev/rss/rss-nodejs-2022-task2-file-manager/files/
+  // rn fileToCopy.txt NewFile.txt
 
   try {
-    if (!fs.existsSync(wrongFilename)) {
-      throw new Error(errorMessage);
-    } else if (fs.existsSync(properFilename)) {
-      throw new Error(errorMessage);
+    if (fs.existsSync(newFileName)) {
+      throw new Error(errorMessageFSOperationFailed);
     } else {
-      await renameFile(wrongFilename, properFilename);
+      await copyFile(currentFileName, newFileName);
     }
   } catch (error) {
     console.log(error);
   }
 };
+
+async function copyFile(currentFileName, newFileName) {
+  const readable = fs.createReadStream(currentFileName, { encoding: 'utf8' });
+  const writable = fs.createWriteStream(newFileName);
+  readable.pipe(writable).on('finish', () => {
+    remove(currentFileName);
+    console.log(` > File Renamed: ${newFileName}`);
+    console.log(`\n`);
+  });
+}

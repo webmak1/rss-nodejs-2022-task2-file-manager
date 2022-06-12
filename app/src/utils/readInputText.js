@@ -78,7 +78,6 @@ export const readInputText = () => {
       }
       // RENAME
       case 'rn': {
-        // rn /home/marley/projects/dev/rss/rss-nodejs-2022-task2-file-manager/files/wrongFilename.txt /home/marley/projects/dev/rss/rss-nodejs-2022-task2-file-manager/files/properFilename.md
         if (inputUserArgs.length > 1 && inputUserArgs.length < 4) {
           rename(inputUserArgs[1], inputUserArgs[2]);
         } else {
@@ -86,8 +85,6 @@ export const readInputText = () => {
         }
         break;
       }
-      // TODO
-      // COPY
       case 'cp': {
         if (inputUserArgs.length > 1 && inputUserArgs.length < 4) {
           copy(inputUserArgs[1], inputUserArgs[2]);
@@ -96,7 +93,6 @@ export const readInputText = () => {
         }
         break;
       }
-
       // TODO
       // MOVE
       case 'mv': {
@@ -108,6 +104,7 @@ export const readInputText = () => {
         }
         break;
       }
+      // REMOVE
       case 'rm': {
         if (inputUserArgs.length > 1 && inputUserArgs.length < 3) {
           remove(inputUserArgs[1]);
