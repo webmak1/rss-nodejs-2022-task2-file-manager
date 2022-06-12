@@ -11,6 +11,14 @@ import { changeLocation, goUp } from './navigation/index.js';
 import { osInfo } from './osInfo.js';
 
 export const readInputText = () => {
+  const printErrorMessage = () => {
+    process.stdout.write(
+      `
+      > Invalid input
+      > Try to enter another command":\n\n`
+    );
+  };
+
   const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
@@ -27,26 +35,27 @@ export const readInputText = () => {
       case 'exit': {
         sayGoodBye();
       }
-      case 'help': {
-        help();
-        break;
-      }
       case 'up': {
         if (inputUserArgs.length > 0 && inputUserArgs.length < 2) {
           goUp(inputUserArgs[1]);
+        } else {
+          printErrorMessage();
         }
         break;
       }
       case 'cd': {
-        // cd /home/marley/projects/dev/rss/rss-nodejs-2022-task2-file-manager/files/
         if (inputUserArgs.length > 0 && inputUserArgs.length < 3) {
           changeLocation(inputUserArgs[1]);
+        } else {
+          printErrorMessage();
         }
         break;
       }
       case 'ls': {
         if (inputUserArgs.length > 0 && inputUserArgs.length < 2) {
           list(inputUserArgs[1]);
+        } else {
+          printErrorMessage();
         }
         break;
       }
@@ -54,6 +63,8 @@ export const readInputText = () => {
         // cat /home/marley/projects/dev/rss/rss-nodejs-2022-task2-file-manager/files/fileToRead.txt
         if (inputUserArgs.length > 0 && inputUserArgs.length < 3) {
           read(inputUserArgs[1]);
+        } else {
+          printErrorMessage();
         }
         break;
       }
@@ -61,6 +72,8 @@ export const readInputText = () => {
         // add /home/marley/projects/dev/rss/rss-nodejs-2022-task2-file-manager/files/fileToCreate.txt
         if (inputUserArgs.length > 0 && inputUserArgs.length < 3) {
           create(inputUserArgs[1]);
+        } else {
+          printErrorMessage();
         }
         break;
       }
@@ -69,6 +82,8 @@ export const readInputText = () => {
         // rn /home/marley/projects/dev/rss/rss-nodejs-2022-task2-file-manager/files/wrongFilename.txt /home/marley/projects/dev/rss/rss-nodejs-2022-task2-file-manager/files/properFilename.md
         if (inputUserArgs.length > 1 && inputUserArgs.length < 4) {
           rename(inputUserArgs[1], inputUserArgs[2]);
+        } else {
+          printErrorMessage();
         }
         break;
       }
@@ -78,6 +93,8 @@ export const readInputText = () => {
         // rn /home/marley/projects/dev/rss/rss-nodejs-2022-task2-file-manager/files/wrongFilename.txt /home/marley/projects/dev/rss/rss-nodejs-2022-task2-file-manager/files/properFilename.md
         if (inputUserArgs.length > 1 && inputUserArgs.length < 4) {
           copy(inputUserArgs[1], inputUserArgs[2]);
+        } else {
+          printErrorMessage();
         }
         break;
       }
@@ -88,6 +105,8 @@ export const readInputText = () => {
         // rn /home/marley/projects/dev/rss/rss-nodejs-2022-task2-file-manager/files/wrongFilename.txt /home/marley/projects/dev/rss/rss-nodejs-2022-task2-file-manager/files/properFilename.md
         if (inputUserArgs.length > 1 && inputUserArgs.length < 4) {
           move(inputUserArgs[1], inputUserArgs[2]);
+        } else {
+          printErrorMessage();
         }
         break;
       }
@@ -98,39 +117,46 @@ export const readInputText = () => {
         // rm /home/marley/projects/dev/rss/rss-nodejs-2022-task2-file-manager/files/fileToRemove.txt
         if (inputUserArgs.length > 1 && inputUserArgs.length < 3) {
           remove(inputUserArgs[1]);
+        } else {
+          printErrorMessage();
         }
         break;
       }
       case 'os': {
         if (inputUserArgs.length > 1 && inputUserArgs.length < 3) {
           osInfo(inputUserArgs[1]);
+        } else {
+          printErrorMessage();
         }
         break;
       }
       case 'hash': {
         if (inputUserArgs.length > 1 && inputUserArgs.length < 3) {
           getFileHash(inputUserArgs[1]);
+        } else {
+          printErrorMessage();
         }
         break;
       }
       case 'compress': {
         if (inputUserArgs.length > 1 && inputUserArgs.length < 4) {
           compress(inputUserArgs);
+        } else {
+          printErrorMessage();
         }
         break;
       }
       case 'decompress': {
         if (inputUserArgs.length > 1 && inputUserArgs.length < 4) {
           decompress(inputUserArgs);
+        } else {
+          printErrorMessage();
         }
+
         break;
       }
       default: {
-        process.stdout.write(
-          `
-          > Invalid input
-          > Try to enter another command":\n\n`
-        );
+        printErrorMessage();
         break;
       }
     }

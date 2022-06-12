@@ -17,3 +17,7 @@ export const sayGoodBye = () => {
   );
   process.exit();
 };
+
+export const errorMessageFSOperationFailed = () => {
+  return 'FS operation failed';
+};

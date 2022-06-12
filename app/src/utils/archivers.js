@@ -21,9 +21,6 @@ export const compress = async (args) => {
     dstFile = srcFile + '.br';
   }
 
-  console.log('srcFile ' + srcFile);
-  console.log('dstFile ' + dstFile);
-
   compressRun();
 };
 

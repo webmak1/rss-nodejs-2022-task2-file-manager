@@ -1,20 +1,34 @@
 import * as fs from 'fs';
+import { errorMessageFSOperationFailed } from '../messages.js';
+import { currentLocation } from '../navigation/index.js';
 
-const errorMessage = 'FS operation failed';
+// cd /home/marley/projects/dev/rss/rss-nodejs-2022-task2-file-manager/files/
+// cat fileToRead.txt
 
-async function readFile(src) {
-  await fs.readFile(src, 'utf8', (err, data) => {
-    if (err) {
-      return console.error(err);
-    }
-    console.log(data);
-  });
+async function readFile(fileToRead) {
+  const readStream = fs.createReadStream(fileToRead, 'utf-8');
+  readStream
+    .on('data', (data) => {
+      process.stdout.write(data);
+      process.stdout.write('\n');
+    })
+    .on('end', () => {
+      console.log(' > THE END');
+    })
+
+    .on('error', (error) => {
+      console.log(` > Error: ${error}`);
+    });
 }
 
 export const read = async (fileToRead) => {
+  if (!fileToRead.includes('/')) {
+    fileToRead = currentLocation + fileToRead;
+  }
+
   try {
     if (!fs.existsSync(fileToRead)) {
-      throw new Error(errorMessage);
+      throw new Error(errorMessageFSOperationFailed);
     } else {
       await readFile(fileToRead);
     }
