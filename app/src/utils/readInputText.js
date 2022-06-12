@@ -1,5 +1,6 @@
 import readline from 'readline';
 import { compress, decompress } from './archivers.js';
+import { copy } from './files-operations/copy.js';
 import { create } from './files-operations/create.js';
 import { list } from './files-operations/list.js';
 import { read } from './files-operations/read.js';
@@ -88,7 +89,6 @@ export const readInputText = () => {
       // TODO
       // COPY
       case 'cp': {
-        // rn /home/marley/projects/dev/rss/rss-nodejs-2022-task2-file-manager/files/wrongFilename.txt /home/marley/projects/dev/rss/rss-nodejs-2022-task2-file-manager/files/properFilename.md
         if (inputUserArgs.length > 1 && inputUserArgs.length < 4) {
           copy(inputUserArgs[1], inputUserArgs[2]);
         } else {
@@ -108,11 +108,7 @@ export const readInputText = () => {
         }
         break;
       }
-
-      // TODO
-      // REMOVE
       case 'rm': {
-        // rm /home/marley/projects/dev/rss/rss-nodejs-2022-task2-file-manager/files/fileToRemove.txt
         if (inputUserArgs.length > 1 && inputUserArgs.length < 3) {
           remove(inputUserArgs[1]);
         } else {

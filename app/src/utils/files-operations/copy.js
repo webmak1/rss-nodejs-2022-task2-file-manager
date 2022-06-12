@@ -1,44 +1,35 @@
 import * as fs from 'fs';
+import { errorMessageFSOperationFailed } from '../messages.js';
+import { currentLocation } from '../navigation/index.js';
 
-const srcPath = "./src/fs/files";
-const destPath = "./src/fs/files_copy";
-const errorMessage = "FS operation failed";
+export const copy = async (currentFileName, newFileName) => {
+  if (!currentFileName.includes('/')) {
+    currentFileName = currentLocation + currentFileName;
+  }
 
-async function copyDir(src, dest) {
-    await fs.mkdir(dest, function(err) {
-        if (err) {
-            return console.error(err);
-        }
-        console.log("Directory created successfully!");
-        console.log("\n");
-    });
+  if (!newFileName.includes('/')) {
+    newFileName = currentLocation + newFileName;
+  }
 
-    await fs.readdir(src, function(err, entries) {
-        if (err) {
-            return console.error(err);
-        }
+  // cd /home/marley/projects/dev/rss/rss-nodejs-2022-task2-file-manager/files/
+  // cp fileToCopy.txt fileToCopy.txt.bkp
 
-        for (let entry of entries) {
-            let srcFileCopy = src + "/" + entry;
-            let destFileCopy = dest + "/" + entry;
-
-            fs.copyFile(srcFileCopy, destFileCopy, function(err) {
-                if(err) {
-                    throw new Error(errorMessage);
-                }        
-            }); 
-        }
-    });
-}
-
-export const copy = async () => {
-    try {
-        if (fs.existsSync(destPath)) {
-            throw new Error(errorMessage)
-        } else {
-            await copyDir(srcPath, destPath);
-        }
-    } catch (error){
-        console.log(error);
+  try {
+    if (fs.existsSync(newFileName)) {
+      throw new Error(errorMessageFSOperationFailed);
+    } else {
+      await copyFile(currentFileName, newFileName);
     }
+  } catch (error) {
+    console.log(error);
+  }
 };
+
+async function copyFile(currentFileName, newFileName) {
+  const readable = fs.createReadStream(currentFileName, { encoding: 'utf8' });
+  const writable = fs.createWriteStream(newFileName);
+  readable.pipe(writable).on('finish', () => {
+    console.log(` > Copying finished: ${newFileName}`);
+    console.log(`\n`);
+  });
+}
