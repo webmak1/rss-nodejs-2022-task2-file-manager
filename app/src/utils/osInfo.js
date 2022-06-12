@@ -31,7 +31,7 @@ export const osInfo = (args) => {
       for (let i = 0; i < coreCount; i++) {
         console.log(
           `> Core ${i} speed is: ` +
-            Math.round((os.cpus()[i].speed / 1024) * 100) / 100 +
+            Math.round((os.cpus()[i].speed / 1000) * 100) / 100 +
             ' Ghz'
         );
       }

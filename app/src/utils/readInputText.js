@@ -2,6 +2,8 @@ import readline from 'readline';
 import { archivers } from './archivers.js';
 import { getFileHash } from './hashCalculation.js';
 import { sayGoodBye } from './messages.js';
+import { list } from './navigation/list.js';
+import { read } from './navigation/read.js';
 import { osInfo } from './osInfo.js';
 
 export const readInputText = () => {
@@ -25,8 +27,17 @@ export const readInputText = () => {
         help();
         break;
       }
-      case 'navigation': {
-        help();
+      case 'ls': {
+        if (inputUserArgs.length > 0 && inputUserArgs.length < 2) {
+          list(inputUserArgs[1]);
+        }
+        break;
+      }
+      case 'cat': {
+        // cat /home/marley/projects/dev/rss/rss-nodejs-2022-task2-file-manager/files/fileToRead.txt
+        if (inputUserArgs.length > 0 && inputUserArgs.length < 3) {
+          read(inputUserArgs[1]);
+        }
         break;
       }
       case 'filesOperations': {
