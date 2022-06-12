@@ -13,6 +13,7 @@ async function readFile(fileToRead) {
       process.stdout.write('\n');
     })
     .on('end', () => {
+      console.log('\n');
       console.log(' > THE END');
     })
 

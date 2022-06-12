@@ -19,6 +19,16 @@ export const changeLocation = async (newLocation) => {
 
 export const goUp = async () => {
   let lastIndex = currentLocation.lastIndexOf('/');
+
+  console.log('lastIndex ' + lastIndex);
+
+  console.log('currentLocation.length ' + currentLocation.length);
+
+  if (lastIndex === currentLocation.length - 1) {
+    currentLocation = currentLocation.slice(0, -1);
+    lastIndex = currentLocation.lastIndexOf('/');
+  }
+
   if (lastIndex != 0) {
     let newLocation = currentLocation.substring(0, lastIndex);
     currentLocation = newLocation;
