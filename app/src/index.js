@@ -1,12 +1,20 @@
-import * as os from 'os';
 import { sayHello } from './utils/messages.js';
+import { getCurrentLocation } from './utils/navigation/index.js';
 import { readInputText } from './utils/readInputText.js';
 
-let location = os.homedir();
+// Переделать архиватор
+// Посмотреть что там со стримами
+// Удаление и переименование
+
+// TODO
+// COPY
+
+// TODO
+// MOVE
 
 const app = () => {
   sayHello();
-  console.log(` > You are currently in: ${location}`);
+  getCurrentLocation();
   readInputText();
 };
 

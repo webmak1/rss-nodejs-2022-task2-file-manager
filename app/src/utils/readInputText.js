@@ -1,9 +1,13 @@
 import readline from 'readline';
 import { archivers } from './archivers.js';
+import { create } from './files-operations/create.js';
+import { list } from './files-operations/list.js';
+import { read } from './files-operations/read.js';
+import { remove } from './files-operations/remove.js';
+import { rename } from './files-operations/rename.js';
 import { getFileHash } from './hashCalculation.js';
 import { sayGoodBye } from './messages.js';
-import { list } from './navigation/list.js';
-import { read } from './navigation/read.js';
+import { changeLocation, goUp } from './navigation/index.js';
 import { osInfo } from './osInfo.js';
 
 export const readInputText = () => {
@@ -27,6 +31,19 @@ export const readInputText = () => {
         help();
         break;
       }
+      case 'up': {
+        if (inputUserArgs.length > 0 && inputUserArgs.length < 2) {
+          goUp(inputUserArgs[1]);
+        }
+        break;
+      }
+      case 'cd': {
+        // cd /home/marley/projects/dev/rss/rss-nodejs-2022-task2-file-manager/files/
+        if (inputUserArgs.length > 0 && inputUserArgs.length < 3) {
+          changeLocation(inputUserArgs[1]);
+        }
+        break;
+      }
       case 'ls': {
         if (inputUserArgs.length > 0 && inputUserArgs.length < 2) {
           list(inputUserArgs[1]);
@@ -40,8 +57,48 @@ export const readInputText = () => {
         }
         break;
       }
-      case 'filesOperations': {
-        help();
+      case 'add': {
+        // add /home/marley/projects/dev/rss/rss-nodejs-2022-task2-file-manager/files/fileToCreate.txt
+        if (inputUserArgs.length > 0 && inputUserArgs.length < 3) {
+          create(inputUserArgs[1]);
+        }
+        break;
+      }
+      // RENAME
+      case 'rn': {
+        // rn /home/marley/projects/dev/rss/rss-nodejs-2022-task2-file-manager/files/wrongFilename.txt /home/marley/projects/dev/rss/rss-nodejs-2022-task2-file-manager/files/properFilename.md
+        if (inputUserArgs.length > 1 && inputUserArgs.length < 4) {
+          rename(inputUserArgs[1], inputUserArgs[2]);
+        }
+        break;
+      }
+      // TODO
+      // COPY
+      case 'cp': {
+        // rn /home/marley/projects/dev/rss/rss-nodejs-2022-task2-file-manager/files/wrongFilename.txt /home/marley/projects/dev/rss/rss-nodejs-2022-task2-file-manager/files/properFilename.md
+        if (inputUserArgs.length > 1 && inputUserArgs.length < 4) {
+          copy(inputUserArgs[1], inputUserArgs[2]);
+        }
+        break;
+      }
+
+      // TODO
+      // MOVE
+      case 'mv': {
+        // rn /home/marley/projects/dev/rss/rss-nodejs-2022-task2-file-manager/files/wrongFilename.txt /home/marley/projects/dev/rss/rss-nodejs-2022-task2-file-manager/files/properFilename.md
+        if (inputUserArgs.length > 1 && inputUserArgs.length < 4) {
+          move(inputUserArgs[1], inputUserArgs[2]);
+        }
+        break;
+      }
+
+      // TODO
+      // REMOVE
+      case 'rm': {
+        // rm /home/marley/projects/dev/rss/rss-nodejs-2022-task2-file-manager/files/fileToRemove.txt
+        if (inputUserArgs.length > 1 && inputUserArgs.length < 3) {
+          remove(inputUserArgs[1]);
+        }
         break;
       }
       case 'os': {
