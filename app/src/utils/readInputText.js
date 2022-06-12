@@ -1,5 +1,5 @@
 import readline from 'readline';
-import { archivers } from './archivers.js';
+import { compress, decompress } from './archivers.js';
 import { create } from './files-operations/create.js';
 import { list } from './files-operations/list.js';
 import { read } from './files-operations/read.js';
@@ -114,14 +114,14 @@ export const readInputText = () => {
         break;
       }
       case 'compress': {
-        if (inputUserArgs.length === 3) {
-          archivers(inputUserArgs);
+        if (inputUserArgs.length > 1 && inputUserArgs.length < 4) {
+          compress(inputUserArgs);
         }
         break;
       }
       case 'decompress': {
-        if (inputUserArgs.length === 3) {
-          archivers(inputUserArgs);
+        if (inputUserArgs.length > 1 && inputUserArgs.length < 4) {
+          decompress(inputUserArgs);
         }
         break;
       }
@@ -129,7 +129,7 @@ export const readInputText = () => {
         process.stdout.write(
           `
           > Invalid input
-          > Enter next command or type "help":\n\n`
+          > Try to enter another command":\n\n`
         );
         break;
       }

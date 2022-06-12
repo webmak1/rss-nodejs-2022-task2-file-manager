@@ -11,7 +11,6 @@ export const getCurrentLocation = async () => {
 
 export const changeLocation = async (newLocation) => {
   if (await isDirectoryExists(newLocation)) {
-    console.log('WTF');
     currentLocation = newLocation;
   }
 

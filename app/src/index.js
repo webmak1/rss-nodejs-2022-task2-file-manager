@@ -12,6 +12,8 @@ import { readInputText } from './utils/readInputText.js';
 // TODO
 // MOVE
 
+// Проверка на существование файла!
+
 const app = () => {
   sayHello();
   getCurrentLocation();

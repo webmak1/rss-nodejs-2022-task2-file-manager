@@ -1,58 +1,76 @@
 import { createReadStream, createWriteStream } from 'fs';
 import * as zlib from 'zlib';
 import { createGzip } from 'zlib';
+import { currentLocation } from './navigation/index.js';
 
-let inputParam1;
-let inputParam2;
+let srcFile;
+let dstFile;
 
-export const archivers = (args) => {
-  console.log(args);
+export const compress = async (args) => {
+  srcFile = args[1];
 
-  inputParam1 = args[1];
-  inputParam2 = args[2];
-
-  switch (args[0]) {
-    case 'compress': {
-      compress();
-      break;
-    }
-
-    case 'decompress': {
-      decompress();
-      break;
-    }
-
-    default: {
-      process.stdout.write(
-        `
-        > Invalid input
-        > Enter next command or type "help":\n\n`
-      );
-      break;
-    }
+  if (!srcFile.includes('/')) {
+    srcFile = currentLocation + srcFile;
   }
+
+  dstFile = args[2];
+
+  if (!dstFile) {
+    dstFile = srcFile + '.gz';
+  }
+
+  console.log('srcFile ' + srcFile);
+  console.log('dstFile ' + dstFile);
+
+  compressRun();
 };
 
-// compress /home/marley/tmp/logs/file1.txt /home/marley/tmp/logs/file1.txt.gz
+// compress /home/marley/projects/dev/rss/rss-nodejs-2022-task2-file-manager/files/fileToCompress.txt /home/marley/projects/dev/rss/rss-nodejs-2022-task2-file-manager/files/fileToCompress.txt.gz
 
-const compress = async () => {
-  const handleStream = createReadStream(inputParam1);
+const compressRun = async () => {
+  const handleStream = createReadStream(srcFile);
   handleStream
     .pipe(createGzip())
-    .pipe(createWriteStream(inputParam2))
+    .pipe(createWriteStream(dstFile))
     .on('finish', () => {
-      console.log(`Compression process done: ${inputParam1}`);
+      console.log(`Compression process done: ${srcFile}`);
+      console.log(`\n`);
     });
 };
 
-// decompress /home/marley/tmp/logs/file1.txt.gz /home/marley/tmp/logs/file1.txt
+// decompress /home/marley/projects/dev/rss/rss-nodejs-2022-task2-file-manager/files/fileToCompress.txt.gz /home/marley/projects/dev/rss/rss-nodejs-2022-task2-file-manager/files/fileToCompress.txt
 
-export const decompress = async () => {
-  const handleStream = createReadStream(inputParam1);
+// cd /home/marley/projects/dev/rss/rss-nodejs-2022-task2-file-manager/files/
+// decompress fileToCompress.txt.gz
+
+export const decompress = async (args) => {
+  srcFile = args[1];
+  dstFile = args[2];
+
+  if (!srcFile.includes('/')) {
+    srcFile = currentLocation + srcFile;
+    console.log('absolute path');
+  }
+
+  if (!dstFile) {
+    //    dstFile = srcFile + '.gz';
+    let lastIndex = srcFile.lastIndexOf('.gz');
+    dstFile = srcFile.substring(0, lastIndex);
+  }
+
+  console.log(' srcFile ' + srcFile);
+  console.log(' dstFile ' + dstFile);
+
+  decompressRun();
+};
+
+export const decompressRun = async () => {
+  const handleStream = createReadStream(srcFile);
   handleStream
     .pipe(zlib.createUnzip())
-    .pipe(createWriteStream(inputParam2))
+    .pipe(createWriteStream(dstFile))
     .on('finish', () => {
-      console.log(`Decompression process done: ${inputParam2}`);
+      console.log(`Decompression process done: ${dstFile}`);
+      console.log(`\n`);
     });
 };

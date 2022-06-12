@@ -57,7 +57,7 @@ export const osInfo = (args) => {
       process.stdout.write(
         `
         > Invalid input
-        > Enter next command or type "help":\n\n`
+        > Try to enter another command":\n\n`
       );
       break;
     }
