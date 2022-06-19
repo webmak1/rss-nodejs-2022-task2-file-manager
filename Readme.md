@@ -66,59 +66,6 @@ os --architecture
 
 <br/>
 
-### Basic operations
-
-```
-cd /home/marley/projects/dev/rss/rss-nodejs-2022-task2-file-manager/files/
-cp fileToCopy.txt fileToCopy.txt.bkp
-```
-
-<br/>
-
-```
-cd /home/marley/projects/dev/rss/rss-nodejs-2022-task2-file-manager/files/
-add newFile.txt
-```
-
-<br/>
-
-```
-cd /home/marley/projects/dev/rss/rss-nodejs-2022-task2-file-manager/files/
-mv fileToRemove.txt /home/marley/tmp/
-
-
-Проверки не в приложении, а в терминале прошли
-
-// ls /home/marley/tmp/fileToRemove.txt
-// cat /home/marley/tmp/fileToRemove.txt
-// rm /home/marley/tmp/fileToRemove.txt
-```
-
-<br/>
-
-/home/marley/projects/dev/rss/rss-nodejs-2022-task2-file-manager/files
-
-```
-cd /home/marley/projects/dev/rss/rss-nodejs-2022-task2-file-manager/files/
-cat fileToRead.txt
-```
-
-<br/>
-
-```
-cd /home/marley/projects/dev/rss/rss-nodejs-2022-task2-file-manager/files/
-rm fileToRemove.txt
-```
-
-<br/>
-
-```
-cd /home/marley/projects/dev/rss/rss-nodejs-2022-task2-file-manager/files/
-rn fileToCopy.txt NewFile.txt
-```
-
-<br/>
-
 ### Hash
 
 <br/>
